@@ -1,29 +1,33 @@
 class Solution {
 public:
-    int numOfSubarrays(vector<int>& arr, int k, int t) {
-        int i=0,j=0,n=arr.size(),cnt=0;
-        double sum=0,avg=0;
+    int minSubArrayLen(int k, vector<int>& v) {
+        int n=v.size(),i=0,j=0,sum=0,res=INT_MAX;
         while(j<n)
         {
-            if((j-i+1)<=k)
+            if(sum<k)
             {
-                sum=sum+arr[j];
-                //cout << j << " ";
+                sum=sum+v[j];
             }
-            else if((j-i+1)==k+1)
+            else
             {
-                avg=sum/k;
-                if(avg>=t)
-                {
-                cnt++;
-                }
-                sum=sum-arr[i]+arr[j];
-                i++; 
+            if(sum>=k)
+            {
+                res=min(res,j-i+1);
+            }
+            while(sum>=k && i<j)
+            {
+                sum-=v[i];
+                i++;
+                if(sum>=k && i<=j)
+                res=min(res,j-i+1);
+                sum+=v[j]; 
+            }
             }
             j++;
         }
-        if(j==n && (sum/k) >=t)
-            cnt++;
-        return cnt;
+        if(res==INT_MAX)
+            return 0;
+        return res;
+                                  
     }
 };
