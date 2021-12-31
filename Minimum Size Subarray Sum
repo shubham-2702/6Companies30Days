@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int numOfSubarrays(vector<int>& arr, int k, int t) {
+        int i=0,j=0,n=arr.size(),cnt=0;
+        double sum=0,avg=0;
+        while(j<n)
+        {
+            if((j-i+1)<=k)
+            {
+                sum=sum+arr[j];
+                //cout << j << " ";
+            }
+            else if((j-i+1)==k+1)
+            {
+                avg=sum/k;
+                if(avg>=t)
+                {
+                cnt++;
+                }
+                sum=sum-arr[i]+arr[j];
+                i++; 
+            }
+            j++;
+        }
+        if(j==n && (sum/k) >=t)
+            cnt++;
+        return cnt;
+    }
+};
