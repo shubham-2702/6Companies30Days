@@ -1,0 +1,22 @@
+string encode(string src)
+{     
+  map<char,int> m;
+  string ans="";
+  int cnt=1;
+  ans+=src[0];
+  for(int i=1;i<src.length();i++)
+  {
+      if(src[i]==src[i-1])
+      cnt++;
+      else
+      {
+          ans+=cnt+'0';
+          ans+=src[i];
+          cnt=1;
+      }
+  }
+  ans+=cnt+'0';
+  return ans;
+  
+}     
+ 
